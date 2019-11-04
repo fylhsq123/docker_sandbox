@@ -1,0 +1,13 @@
+{
+  "swagger" : {
+    "outputDirectory": "./src/routes",
+    "entryFile": "./src/controllers/index.ts"
+  },
+  "routes": {
+    "basePath": "/",
+    "middleware": "express",
+    "entryFile": "./src/controllers/index.ts",
+    "routesDir": "./src/routes",
+    "routesFileName": "index.ts"
+  }
+}

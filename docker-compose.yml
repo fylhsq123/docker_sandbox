@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  db-host:
+    image: mongo:latest
+    ports:
+      - "${DB_PORT:-27017}"
+    command: mongod --port ${DB_PORT:-27017}
+    environment:
+      MONGO_INITDB_DATABASE: ${DB_NAME:-docker-sandbox}
+
+  host:
+    build:
+      .
+    ports:
+      - "${SERVICE_PORT}:${SERVICE_INNER_PORT:-3000}"
+    links:
+      - db-host
+    restart: on-failure
+    environment:
+      DB_NAME: ${DB_NAME:-docker-sandbox}
+      DB_HOST: db-host
+      DB_PORT: ${DB_PORT:-27017}
+      DB_USER: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASS}
+      PORT: ${SERVICE_INNER_PORT:-3000}
